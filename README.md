@@ -1,52 +1,52 @@
-# BMI Calculator (Python Programming — Task 2, Advanced Tier)
+# Basic Weather App (Python Programming — Task 4, Advanced Tier)
 
 **OASIS INFOBYTE Summer Internship Program**
 
-A desktop GUI application (tkinter) that calculates Body Mass Index,
-classifies it into standard health categories with colour-coded feedback,
-stores historical records per user in SQLite, and plots a BMI trend chart.
+A tkinter GUI application that fetches and displays real-time weather data
+for a user-specified city using the OpenWeatherMap API.
 
 ## Features
 
-- GUI built with tkinter (no command line)
-- BMI formula: `BMI = weight (kg) / height (m)²`
-- Standard classification: Underweight / Normal / Overweight / Obese
-- Colour-coded result (blue / green / orange / red)
-- Multi-user support — records saved per named user
-- Historical records stored in a local SQLite database (`bmi_records.db`)
-- "Show My BMI Trend" button plots a line chart (matplotlib) of a user's BMI
-  over time (needs at least 2 saved records for that name)
-- Input validation: rejects non-numeric or non-positive weight/height
-- Error handling for database read/write failures
+- GUI with a city input field, "Get Weather" button, and results panel
+- Displays: current temperature, humidity, condition description, wind speed
+- Weather icon fetched from OpenWeatherMap's icon URLs
+- Hourly forecast panel (next 6 hours)
+- Celsius / Fahrenheit unit toggle button
+- Graceful error handling: city not found, invalid API key, network timeout
+- Input validation: rejects empty city input
 
 ## Setup
 
-```bash
-pip install matplotlib
-```
-
-(`tkinter` and `sqlite3` ship with standard Python installs.)
+1. Register for a **free** API key at https://openweathermap.org/appid
+   (free tier: 60 calls/minute, plenty for this project)
+2. Install dependencies:
+   ```bash
+   pip install requests pillow
+   ```
+3. Set your API key as an environment variable:
+   ```bash
+   export OWM_API_KEY="your_key_here"      # Mac/Linux
+   set OWM_API_KEY=your_key_here            # Windows cmd
+   ```
 
 ## Run
 
 ```bash
-python bmi_calculator.py
+python weather_app.py
 ```
 
-Enter a name, weight in kilograms, and height in metres, then click
-**Calculate**. Calculate a few times for the same name (with slightly
-different weights) to populate enough history to view the trend graph.
+Type a city name and click **Get Weather** (or press Enter).
 
 ## Notes
 
-- The SQLite database file `bmi_records.db` is created automatically in the
-  same folder on first run.
-- BMI categories used: Underweight (<18.5), Normal (18.5–24.9), Overweight
-  (25–29.9), Obese (≥30) — standard WHO classification.
+- If Pillow isn't installed, the app still works — it just skips the
+  weather icon image and shows text-only results.
+- API keys can take a few minutes to activate after registration; if you
+  get an "Invalid API key" error right after signing up, wait a bit and
+  try again.
 
 ## Self-sourcing references used
 
-- YouTube: "Python tkinter GUI tutorial beginners"
-- YouTube: "Python matplotlib line chart tutorial"
-- Official tkinter docs (docs.python.org)
-- "Python sqlite3 tutorial CRUD"
+- OpenWeatherMap API documentation (openweathermap.org/api)
+- YouTube: "Python tkinter weather app tutorial"
+- YouTube: "Python weather app OpenWeatherMap API tutorial"
